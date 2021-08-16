@@ -8,7 +8,7 @@ import {
 import { FaRegLightbulb } from 'react-icons/fa';
 import { FiCamera, FiBell, FiBellOff, FiMicOff } from 'react-icons/fi';
 import { GiSpeaker, GiSpeakerOff } from 'react-icons/gi';
-import { BsMicFill } from 'react-icons/bs'
+import { BsMicFill } from 'react-icons/bs';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { BiStopCircle } from 'react-icons/bi';
 import { Tooltip, Button, Space } from 'antd';
@@ -27,7 +27,7 @@ export default class HomePage extends React.Component {
       mute: true,
       recording: false,
       videos: [],
-      mic:null
+      mic: null
     };
   }
 
@@ -120,8 +120,7 @@ export default class HomePage extends React.Component {
 
     if ('pictureInPictureEnabled' in document) {
       if (document.pictureInPictureElement) {
-        document;
-        video.exitPictureInPicture().catch(error => {
+        document.exitPictureInPicture().catch(error => {
           // Error handling
         });
       } else {
@@ -130,25 +129,29 @@ export default class HomePage extends React.Component {
         });
       }
     }
+    video.onleavepictureinpicture = e => {
+      console.log(e, video);
+      video.play();
+    };
   };
   videoScreen = () => {
     const video = document.getElementById('video');
     video.play();
   };
 
-   getMicrophone = async() => {
+  getMicrophone = async () => {
     const mic = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: false
     });
     this.setState({ mic });
     console.log(this.state.mic);
-  }
+  };
 
   stopMicrophone = () => {
     this.state.mic.getTracks().forEach(track => track.stop());
     this.setState({ mic: null });
-  }
+  };
 
   toggleMicrophone = () => {
     if (this.state.mic) {
@@ -156,7 +159,7 @@ export default class HomePage extends React.Component {
     } else {
       this.getMicrophone();
     }
-  }
+  };
 
   render() {
     const { recording, videos, speaker, mic } = this.state;
@@ -281,9 +284,13 @@ export default class HomePage extends React.Component {
               shape="circle"
               onClick={this.toggleMicrophone}
               style={{ marginTop: '1rem' }}
-             
-            >{console.log(mic)}
-              {mic ? <BsMicFill style={{ fontSize: '1.5rem', color: '#fff' }}/> : <FiMicOff style={{ fontSize: '1.5rem', color: '#fff' }} />}
+            >
+              {console.log(mic)}
+              {mic ? (
+                <BsMicFill style={{ fontSize: '1.5rem', color: '#fff' }} />
+              ) : (
+                <FiMicOff style={{ fontSize: '1.5rem', color: '#fff' }} />
+              )}
               <br />
               Talk
             </Button>
