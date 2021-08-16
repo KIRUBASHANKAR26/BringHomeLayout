@@ -130,12 +130,13 @@ export default class HomePage extends React.Component {
       }
     }
     video.onleavepictureinpicture = e => {
-      console.log(e, video);
       video.play();
     };
+    video.play();
   };
   videoScreen = () => {
     const video = document.getElementById('video');
+    console.log(video.play());
     video.play();
   };
 
