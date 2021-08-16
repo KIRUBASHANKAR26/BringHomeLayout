@@ -8,6 +8,7 @@ import {
 import { FaRegLightbulb } from 'react-icons/fa';
 import { FiCamera, FiBell, FiBellOff, FiMicOff } from 'react-icons/fi';
 import { GiSpeaker, GiSpeakerOff } from 'react-icons/gi';
+import { BsMicFill } from 'react-icons/bs'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { BiStopCircle } from 'react-icons/bi';
 import { Tooltip, Button, Space } from 'antd';
@@ -25,7 +26,8 @@ export default class HomePage extends React.Component {
       speaker: false,
       mute: true,
       recording: false,
-      videos: []
+      videos: [],
+      mic:null
     };
   }
 
@@ -134,8 +136,30 @@ export default class HomePage extends React.Component {
     video.play();
   };
 
+   getMicrophone = async() => {
+    const mic = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false
+    });
+    this.setState({ mic });
+    console.log(this.state.mic);
+  }
+
+  stopMicrophone = () => {
+    this.state.mic.getTracks().forEach(track => track.stop());
+    this.setState({ mic: null });
+  }
+
+  toggleMicrophone = () => {
+    if (this.state.mic) {
+      this.stopMicrophone();
+    } else {
+      this.getMicrophone();
+    }
+  }
+
   render() {
-    const { recording, videos, speaker, mute } = this.state;
+    const { recording, videos, speaker, mic } = this.state;
 
     const captureBtn = () => {
       var video = document.getElementById('video');
@@ -255,9 +279,11 @@ export default class HomePage extends React.Component {
             <Button
               type="default"
               shape="circle"
+              onClick={this.toggleMicrophone}
               style={{ marginTop: '1rem' }}
-              icon={<FiMicOff style={{ fontSize: '1.5rem', color: '#fff' }} />}
-            >
+             
+            >{console.log(mic)}
+              {mic ? <BsMicFill style={{ fontSize: '1.5rem', color: '#fff' }}/> : <FiMicOff style={{ fontSize: '1.5rem', color: '#fff' }} />}
               <br />
               Talk
             </Button>
