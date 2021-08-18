@@ -187,7 +187,6 @@ export default class HomePage extends React.Component {
         <div
           style={{
             position: 'relative',
-            position: 'relative',
             width: '100%',
             background: '#000',
             maxWidth: '100%',
@@ -195,6 +194,11 @@ export default class HomePage extends React.Component {
             overflow: 'hidden'
           }}
         >
+          <div className="video-header">
+            <span />
+            <span>LIVE</span>
+            <p style={{ marginTop: '0.5rem' }}>Living Room</p>
+          </div>
           <video
             id="video"
             className="videoWrapper"

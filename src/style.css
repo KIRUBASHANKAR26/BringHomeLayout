@@ -74,3 +74,29 @@ p {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Video -header */
+
+.video-header {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  color: #fff;
+}
+.video-header > span:first-of-type {
+  width: 15px;
+  height: 15px;
+  background: #9f1313;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+.video-header > span:last-of-type{
+  padding: 3px 10px;
+  font-size: 13px;
+  background: #5E5E5E;
+  opacity: 70%;
+  border-radius: 4px;
+  vertical-align: top;
+
+}
